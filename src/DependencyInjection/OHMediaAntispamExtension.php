@@ -1,13 +1,13 @@
 <?php
 
-namespace JstnThms\AntispamBundle\DependencyInjection;
+namespace OHMedia\AntispamBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
-class JstnThmsAntispamExtension extends Extension
+class OHMediaAntispamExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -21,7 +21,7 @@ class JstnThmsAntispamExtension extends Extension
         $loader->load('services.yml');
 
         foreach ($config['recaptcha'] as $key => $value) {
-            $container->setParameter("jstnthms_antispam.recaptcha.$key", $value);
+            $container->setParameter("oh_media_antispam.recaptcha.$key", $value);
         }
 
         $this->registerWidget($container);
@@ -35,7 +35,7 @@ class JstnThmsAntispamExtension extends Extension
         //$templating_engines = $container->getParameter('templating.engines');
 
         //if (in_array('twig', $templating_engines)) {
-            $resource = '@JstnThmsAntispam/Form/recaptcha_widget.html.twig';
+            $resource = '@OHMediaAntispam/Form/recaptcha_widget.html.twig';
 
             $container->setParameter('twig.form.resources', array_merge(
                 $container->getParameter('twig.form.resources'),

@@ -1,8 +1,8 @@
 <?php
 
-namespace JstnThms\AntispamBundle\Form\Extension;
+namespace OHMedia\AntispamBundle\Form\Extension;
 
-use JstnThms\AntispamBundle\Form\EventListener\HoneypotValidationListener;
+use OHMedia\AntispamBundle\Form\EventListener\HoneypotValidationListener;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -56,7 +56,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
         if ($options['honeypot_protection'] && !$view->parent && $options['compound']) {
             $factory = $form->getConfig()->getFormFactory();
 
-            $honeypotForm = $factory->createNamed($options['honeypot_field_name'], 'JstnThms\AntispamBundle\Form\Type\HoneypotType', null, [
+            $honeypotForm = $factory->createNamed($options['honeypot_field_name'], 'OHMedia\AntispamBundle\Form\Type\HoneypotType', null, [
                 'mapped' => false,
             ]);
 

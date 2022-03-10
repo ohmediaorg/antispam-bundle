@@ -1,6 +1,6 @@
 <?php
 
-namespace JstnThms\AntispamBundle\Validator\Constraints;
+namespace OHMedia\AntispamBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
@@ -13,6 +13,6 @@ class Recaptcha extends Constraint
     
     public function validatedBy()
     {
-        return 'jstnthms_recaptcha.validator.recaptcha';
+        return 'oh_media_recaptcha.validator.recaptcha';
     }
 }

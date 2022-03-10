@@ -1,12 +1,12 @@
 services:
-    jstnthms_antispam.form.type.recaptcha:
-        class: JstnThms\AntispamBundle\Form\Type\RecaptchaType
-        arguments: ["%jstnthms_antispam.recaptcha.sitekey%", "%jstnthms_antispam.recaptcha.theme%", "%jstnthms_antispam.recaptcha.size%"]
+    oh_media_antispam.form.type.recaptcha:
+        class: OHMedia\AntispamBundle\Form\Type\RecaptchaType
+        arguments: ["%oh_media_antispam.recaptcha.sitekey%", "%oh_media_antispam.recaptcha.theme%", "%oh_media_antispam.recaptcha.size%"]
         tags:
             - { name: form.type }
 
-    jstnthms_antispam.validator.recaptcha:
-        class: JstnThms\AntispamBundle\Validator\RecaptchaValidator
-        arguments: ["@request_stack", "%jstnthms_antispam.recaptcha.secretkey%"]
+    oh_media_antispam.validator.recaptcha:
+        class: OHMedia\AntispamBundle\Validator\RecaptchaValidator
+        arguments: ["@request_stack", "%oh_media_antispam.recaptcha.secretkey%"]
         tags:
             - { name: validator.constraint_validator }

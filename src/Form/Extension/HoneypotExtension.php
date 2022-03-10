@@ -1,6 +1,6 @@
 <?php
 
-namespace JstnThms\AntispamBundle\Form\Extension;
+namespace OHMedia\AntispamBundle\Form\Extension;
 
 use Symfony\Component\Form\AbstractExtension;
 use Symfony\Contracts\Translation\TranslatorInterface;

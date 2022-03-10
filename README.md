@@ -11,7 +11,7 @@ Enable the bundle in `config/bundles.php`:
 ```php
 return [
     // ...
-    JstnThms\AntispamBundle\JstnThmsAntispamBundle::class => ['all' => true],
+    OHMedia\AntispamBundle\OHMediaAntispamBundle::class => ['all' => true],
 ];
 ```
 
@@ -30,11 +30,11 @@ reCAPTCHA
 Include `<script src="https://www.google.com/recaptcha/api.js" async defer></script>`
 on the appropriate pages.
 
-Place the test keys in `config/dev/jstnthms_antispam.yaml`
-and the live keys in `config/prod/jstnthms_antispam.yaml`:
+Place the test keys in `config/dev/oh_media_antispam.yaml`
+and the live keys in `config/prod/oh_media_antispam.yaml`:
 
 ```yaml
-jstnthms_antispam:
+oh_media_antispam:
     recaptcha:
         sitekey: 'my_publishable_key'
         secretkey: 'my_secret_key'
@@ -43,7 +43,7 @@ jstnthms_antispam:
 Add the field to a form:
 
 ```php
-use JstnThms\AntispamBundle\Form\Type\RecaptchaType;
+use OHMedia\AntispamBundle\Form\Type\RecaptchaType;
 
 //...
 $builder->add('recaptcha', RecaptchaType::class);

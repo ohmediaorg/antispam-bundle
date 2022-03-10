@@ -1,6 +1,6 @@
 <?php
 
-namespace JstnThms\AntispamBundle\Validator;
+namespace OHMedia\AntispamBundle\Validator;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraint;

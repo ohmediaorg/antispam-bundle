@@ -1,5 +1,5 @@
 {
-    "name": "jstnthms/anti-spam-bundle",
+    "name": "justin-oh/anti-spam-bundle",
     "type": "symfony-bundle",
     "description": "Symfony AntispamBundle",
     "keywords": ["Anti-spam"],
@@ -7,14 +7,14 @@
     "authors": [
         {
             "name": "Justin Hoffman",
-            "email": "jstnhffmn@gmail.com"
+            "email": "justin@ohmedia.ca"
         }
     ],
     "require": {
         "php": "^7.2.5",
-        "symfony/framework-bundle": "~5.0"
+        "symfony/framework-bundle": "5.4.*"
     },
     "autoload": {
-        "psr-4": { "JstnThms\\AntispamBundle\\": "src/" }
+        "psr-4": { "OHMedia\\AntispamBundle\\": "src/" }
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace JstnThms\AntispamBundle\Form\Type;
+namespace OHMedia\AntispamBundle\Form\Type;
 
-use JstnThms\AntispamBundle\Validator\Constraints\Recaptcha;
+use OHMedia\AntispamBundle\Validator\Constraints\Recaptcha;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;

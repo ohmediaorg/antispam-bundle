@@ -1,6 +1,6 @@
 <?php
 
-namespace JstnThms\AntispamBundle\Form\EventListener;
+namespace OHMedia\AntispamBundle\Form\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormError;
