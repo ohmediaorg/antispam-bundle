@@ -3,6 +3,7 @@
 namespace OHMedia\AntispamBundle\Form\Extension;
 
 use OHMedia\AntispamBundle\Form\EventListener\HoneypotValidationListener;
+use OHMedia\AntispamBundle\Form\Type\HoneypotType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -53,15 +54,34 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
      */
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
-        if ($options['honeypot_protection'] && !$view->parent && $options['compound']) {
-            $factory = $form->getConfig()->getFormFactory();
-
-            $honeypotForm = $factory->createNamed($options['honeypot_field_name'], 'OHMedia\AntispamBundle\Form\Type\HoneypotType', null, [
-                'mapped' => false,
-            ]);
-
-            $view->children[$options['honeypot_field_name']] = $honeypotForm->createView($view);
+        if (!$options['honeypot_protection']) {
+            return;
         }
+
+        if ($view->parent) {
+            return;
+        }
+
+        if (!$options['compound']) {
+            return;
+        }
+
+        $factory = $form->getConfig()->getFormFactory();
+
+        $honeypotForm = $factory->createNamed(
+            $options['honeypot_field_name'],
+            HoneypotType::class,
+            null,
+            [
+                'mapped' => false,
+                'attributes' => [
+                    'style' => 'position: absolute;left:-5000px;',
+                    'aria-hidden' => 'true'
+                ],
+            ]
+        );
+
+        $view->children[$options['honeypot_field_name']] = $honeypotForm->createView($view);
     }
 
     /**
@@ -72,7 +92,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
         $resolver->setDefaults([
             'honeypot_protection' => false,
             'honeypot_field_name' => '_topyenoh',
-            'honeypot_message' => 'Do not fill in the hidden field unless you want to look like a bot!',
+            'honeypot_message' => 'Something went wrong!',
         ]);
     }
 
