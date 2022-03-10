@@ -1,0 +1,12 @@
+services:
+    jstnthms_antispam.form.type.recaptcha:
+        class: JstnThms\AntispamBundle\Form\Type\RecaptchaType
+        arguments: ["%jstnthms_antispam.recaptcha.sitekey%", "%jstnthms_antispam.recaptcha.theme%", "%jstnthms_antispam.recaptcha.size%"]
+        tags:
+            - { name: form.type }
+
+    jstnthms_antispam.validator.recaptcha:
+        class: JstnThms\AntispamBundle\Validator\RecaptchaValidator
+        arguments: ["@request_stack", "%jstnthms_antispam.recaptcha.secretkey%"]
+        tags:
+            - { name: validator.constraint_validator }

@@ -1,0 +1,6 @@
+{%- block honeypot_widget -%}
+  <div style="position: absolute; left: -5000px;" aria-hidden="true">
+      <label for="{{ form.vars.id }}">{{ form.vars.label }}</label>
+      <input type="text" id="{{ form.vars.id }}" name="{{ form.vars.name }}" tabindex="-1" autocomplete="new-password" value="" />
+  </div>
+{%- endblock -%}
