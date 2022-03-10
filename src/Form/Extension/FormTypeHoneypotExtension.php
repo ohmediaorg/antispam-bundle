@@ -70,7 +70,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'honeypot_protection' => true,
+            'honeypot_protection' => false,
             'honeypot_field_name' => '_topyenoh',
             'honeypot_message' => 'Do not fill in the hidden field unless you want to look like a bot!',
         ]);

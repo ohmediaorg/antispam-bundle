@@ -21,8 +21,8 @@ Honeypot
 
 Honeypot is enabled by default. You don't need to do anything!
 
-If you want to disable it on a particular form,
-set the `honeypot_protection` option to false.
+If you want to enable it on a particular form,
+set the `honeypot_protection` option to `true`.
 
 reCAPTCHA
 ---------
