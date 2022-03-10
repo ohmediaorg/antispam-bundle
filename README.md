@@ -19,10 +19,11 @@ return [
 Honeypot
 --------
 
-Honeypot is enabled by default. You don't need to do anything!
+If you want to enable it on a particular form, set the `honeypot_protection`
+option to `true`. Validation will happen automatically.
 
-If you want to enable it on a particular form,
-set the `honeypot_protection` option to `true`.
+Let the default form rendering handle the output of the honeypot fields to avoid
+issues.
 
 reCAPTCHA
 ---------
