@@ -14,3 +14,7 @@ services:
 
     oh_media_antispam.validator.recaptcha:
         alias: OHMedia\AntispamBundle\Validator\RecaptchaValidator
+
+    OHMedia\AntispamBundle\Form\Extension\FormTypeHoneypotExtension:
+        tags:
+            - { name: form.type_extension }
