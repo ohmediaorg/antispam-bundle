@@ -73,8 +73,9 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
             HoneypotType::class,
             null,
             [
+                'label' => false,
                 'mapped' => false,
-                'attributes' => [
+                'attr' => [
                     'style' => 'position: absolute;left:-5000px;',
                     'aria-hidden' => 'true'
                 ],

@@ -6,12 +6,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class HoneypotType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $attributes = [
+        $attr = [
             'tabindex' => '-1',
             'autocomplete' => 'new-password',
         ];
@@ -19,15 +20,15 @@ class HoneypotType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'required' => false,
-                'attributes' => $attributes,
+                'attr' => $attr,
             ])
             ->add('email', EmailType::class, [
                 'required' => false,
-                'attributes' => $attributes,
+                'attr' => $attr,
             ])
             ->add('comments', TextareaType::class, [
                 'required' => false,
-                'attributes' => $attributes,
+                'attr' => $attr,
             ])
         ;
     }
