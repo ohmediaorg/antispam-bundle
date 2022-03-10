@@ -41,27 +41,50 @@ class HoneypotValidationListener implements EventSubscriberInterface
     public function preSubmit(FormEvent $event)
     {
         $form = $event->getForm();
-        $postRequestSizeExceeded = 'POST' === $form->getConfig()->getMethod() && $this->serverParams->hasPostMaxSizeBeenExceeded();
 
-        if ($form->isRoot() && $form->getConfig()->getOption('compound') && !$postRequestSizeExceeded) {
-            $data = $event->getData();
+        $isMethodPost = 'POST' === $form->getConfig()->getMethod();
 
-            $honeypotValue = \is_string($data[$this->fieldName] ?? null) ? $data[$this->fieldName] : null;
+        if ($isMethodPost && $this->serverParams->hasPostMaxSizeBeenExceeded()) {
+            return;
+        }
 
+        if (!$form->isRoot()) {
+            return;
+        }
+
+        if (!$form->getConfig()->getOption('compound')) {
+            return;
+        }
+
+        $data = $event->getData();
+
+        $honeypotFields = \is_array($data[$this->fieldName])
+            ? $data[$this->fieldName]
+            : [];
+
+        $isHoneypotFilled = false;
+
+        foreach ($honeypotFields as $honeypotField => $honeypotValue) {
             if (null !== $honeypotValue && '' !== $honeypotValue) {
-                $errorMessage = $this->errorMessage;
+                $isHoneypotFilled = true;
 
-                if (null !== $this->translator) {
-                    $errorMessage = $this->translator->trans($errorMessage, [], $this->translationDomain);
-                }
+                break;
+            }
+        }
 
-                $form->addError(new FormError($errorMessage));
+        if ($isHoneypotFilled) {
+            $errorMessage = $this->errorMessage;
+
+            if (null !== $this->translator) {
+                $errorMessage = $this->translator->trans($errorMessage, [], $this->translationDomain);
             }
 
-            if (\is_array($data)) {
-                unset($data[$this->fieldName]);
-                $event->setData($data);
-            }
+            $form->addError(new FormError($errorMessage));
+        }
+
+        if (\is_array($data)) {
+            unset($data[$this->fieldName]);
+            $event->setData($data);
         }
     }
 }
