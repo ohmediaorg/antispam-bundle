@@ -13,13 +13,13 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('oh_media_antispam');
-        
+
         $treeBuilder->getRootNode()
             ->children()
                 ->arrayNode('recaptcha')
                     ->children()
-                        ->scalarNode('sitekey')->isRequired()->end()
-                        ->scalarNode('secretkey')->isRequired()->end()
+                        ->scalarNode('sitekey')->end()
+                        ->scalarNode('secretkey')->end()
                         ->scalarNode('theme')
                             ->defaultValue('light')
                             ->validate()
