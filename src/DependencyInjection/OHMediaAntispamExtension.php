@@ -32,15 +32,11 @@ class OHMediaAntispamExtension extends Extension
      */
     protected function registerWidget(ContainerBuilder $container)
     {
-        //$templating_engines = $container->getParameter('templating.engines');
+        $resource = '@OHMediaAntispam/Form/recaptcha_widget.html.twig';
 
-        //if (in_array('twig', $templating_engines)) {
-            $resource = '@OHMediaAntispam/Form/recaptcha_widget.html.twig';
-
-            $container->setParameter('twig.form.resources', array_merge(
-                $container->getParameter('twig.form.resources'),
-                [$resource]
-            ));
-        //}
+        $container->setParameter('twig.form.resources', array_merge(
+            $container->getParameter('twig.form.resources'),
+            [$resource]
+        ));
     }
 }
