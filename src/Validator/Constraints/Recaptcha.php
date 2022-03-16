@@ -2,6 +2,7 @@
 
 namespace OHMedia\AntispamBundle\Validator\Constraints;
 
+use OHMedia\AntispamBundle\Validator\RecaptchaValidator;
 use Symfony\Component\Validator\Constraint;
 
 /**
@@ -10,9 +11,9 @@ use Symfony\Component\Validator\Constraint;
 class Recaptcha extends Constraint
 {
     public $message = 'reCAPTCHA verification was unsuccessful.';
-    
+
     public function validatedBy()
     {
-        return 'oh_media_recaptcha.validator.recaptcha';
+        return RecaptchaValidator::class;
     }
 }
