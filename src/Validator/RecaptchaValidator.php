@@ -28,7 +28,7 @@ class RecaptchaValidator extends ConstraintValidator
         $masterRequest = $this->requestStack->getMasterRequest();
         $remoteip = $masterRequest->getClientIp();
         $response = $masterRequest->get('g-recaptcha-response');
-        
+
         $opts = ['http' => [
             'method' => 'POST',
             'header'  => 'Content-type: application/x-www-form-urlencoded',
@@ -38,7 +38,7 @@ class RecaptchaValidator extends ConstraintValidator
                 'remoteip' => $remoteip
             ])
         ]];
-        
+
         $context  = stream_context_create($opts);
 
         $result = @file_get_contents(self::RECAPTCHA_URL, false, $context);
@@ -46,7 +46,7 @@ class RecaptchaValidator extends ConstraintValidator
         if (!$result) {
             return false;
         }
-        
+
         $json = @json_decode($result);
 
         if (!$json->success) {
