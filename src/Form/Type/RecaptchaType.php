@@ -15,14 +15,14 @@ class RecaptchaType extends AbstractType
     private $sitekey;
     private $theme;
     private $size;
-    
+
     public function __construct($sitekey, $theme, $size)
     {
         $this->sitekey = $sitekey;
         $this->theme = $theme;
         $this->size = $size;
     }
-    
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
@@ -36,18 +36,18 @@ class RecaptchaType extends AbstractType
             ]
         ]);
     }
-    
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->setAttribute('recaptcha', $options['recaptcha']);
     }
-    
+
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['recaptcha'] = $options['recaptcha'];
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return TextType::class;
     }
