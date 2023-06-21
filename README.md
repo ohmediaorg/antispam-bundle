@@ -37,15 +37,18 @@ reCAPTCHA
 Include `<script src="https://www.google.com/recaptcha/api.js" async defer></script>`
 on the appropriate pages.
 
-Place the dev config in `config/dev/oh_media_antispam.yaml`:
+Place the default config in `config/packages/oh_media_antispam.yaml`:
 
 ```yaml
 oh_media_antispam:
     recaptcha:
 ```
 
+_**Note:** `sitekey` and `secretkey` are omitted in the default config because the bundle
+will provide the test reCAPTCHA keys by default._
 
-and the live config in `config/prod/oh_media_antispam.yaml`:
+
+Override on the live site with `config/packages/prod/oh_media_antispam.yaml`:
 
 ```yaml
 oh_media_antispam:
@@ -54,8 +57,7 @@ oh_media_antispam:
         secretkey: 'my_secret_key'
 ```
 
-_**Note:** `sitekey` and `secretkey` are omitted in the dev config because the bundle
-will provide the test reCAPTCHA keys by default._
+You will want to ignore this prod file in your repository.
 
 Add the field to a form:
 
