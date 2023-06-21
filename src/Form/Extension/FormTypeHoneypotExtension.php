@@ -79,6 +79,9 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
                     'style' => 'position: absolute;left:-5000px;',
                     'aria-hidden' => 'true'
                 ],
+                'row_attr' => [
+                    'class' => 'form-row-topyenoh',
+                ],
             ]
         );
 
