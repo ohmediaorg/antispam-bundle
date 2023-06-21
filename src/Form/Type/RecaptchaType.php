@@ -33,7 +33,8 @@ class RecaptchaType extends AbstractType
             ],
             'constraints' => [
                 new Recaptcha()
-            ]
+            ],
+            'label' => false,
         ]);
     }
 
