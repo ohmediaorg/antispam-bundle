@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Exception\ValidatorException;
 
 class RecaptchaValidator extends ConstraintValidator
 {
-    const RECAPTCHA_URL = 'https://www.google.com/recaptcha/api/siteverify';
+    public const RECAPTCHA_URL = 'https://www.google.com/recaptcha/api/siteverify';
 
     private $requestStack;
     private $secretkey;
