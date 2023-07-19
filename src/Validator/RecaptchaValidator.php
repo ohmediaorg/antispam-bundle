@@ -25,6 +25,12 @@ class RecaptchaValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
+        if (!$value) {
+            $this->context->addViolation($constraint->message);
+
+            return;
+        }
+
         $masterRequest = $this->requestStack->getMasterRequest();
         $remoteip = $masterRequest->getClientIp();
 
