@@ -27,14 +27,13 @@ class RecaptchaValidator extends ConstraintValidator
     {
         $masterRequest = $this->requestStack->getMasterRequest();
         $remoteip = $masterRequest->getClientIp();
-        $response = $masterRequest->get('g-recaptcha-response');
 
         $opts = ['http' => [
             'method' => 'POST',
             'header'  => 'Content-type: application/x-www-form-urlencoded',
             'content' => http_build_query([
                 'secret' => $this->secretkey,
-                'response' => $response,
+                'response' => $value,
                 'remoteip' => $remoteip
             ])
         ]];

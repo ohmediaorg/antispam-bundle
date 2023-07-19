@@ -1,0 +1,31 @@
+<script>
+let {{ boolean }} = false;
+
+function {{ callback }}() {
+  {{ boolean }} = true;
+}
+
+function {{ promise }}(container, parameters) {
+  return new Promise((resolve) => {
+    let interval = setInterval(() => {
+      if ({{ boolean }}) {
+        clearInterval(interval);
+
+        const widgetId = grecaptcha.render(container, parameters);
+
+        resolve({
+          reset() {
+            return grecaptcha.reset(widgetId);
+          },
+
+          getResponse() {
+            return grecaptcha.getResponse(widgetId);
+          },
+        });
+      }
+    }, 100);
+  });
+}
+</script>
+
+<script src="https://www.google.com/recaptcha/api.js?onload={{ callback }}&render=explicit"></script>

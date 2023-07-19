@@ -1,10 +1,8 @@
-Overview
-========
+### Overview
 
 Offers a few methods for anti-spam in forms.
 
-Installation
-------------
+## Installation
 
 Enable the bundle in `config/bundles.php`:
 
@@ -16,8 +14,7 @@ return [
 ```
 
 
-Honeypot
---------
+## Honeypot
 
 If you want to enable it on a particular form, set the `honeypot_protection`
 option to `true`. Validation will happen automatically.
@@ -31,11 +28,13 @@ $formBuilder = $this->createFormBuilder(null, [
 Let the default form rendering handle the output of the honeypot fields to avoid
 issues.
 
-reCAPTCHA
----------
+## reCAPTCHA
 
-Include `<script src="https://www.google.com/recaptcha/api.js" async defer></script>`
-on the appropriate pages.
+Place this Twig tag that renders the initialization scripts:
+
+```twig
+{{ recaptcha_script() }}
+```
 
 Place the default config in `config/packages/oh_media_antispam.yaml`:
 
@@ -69,3 +68,15 @@ $builder->add('recaptcha', RecaptchaType::class);
 ```
 
 The validation will happen automatically.
+
+### Custom reCAPTCHA
+
+If you need more from reCAPTCHA (like resetting after a JS submit) or you need
+to custom render it, you can initialize it yourself like so:
+
+```js
+const recaptcha = await ohmedia_antispam_bundle_recaptcha_promise(container, parameters);
+
+// call "recaptcha.getResponse()" to populate a hidden input / posted data
+// call "recaptcha.reset()" to make the user redo the challenge
+```

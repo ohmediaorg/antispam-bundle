@@ -3,6 +3,7 @@
 namespace OHMedia\AntispamBundle\Form\Type;
 
 use OHMedia\AntispamBundle\Validator\Constraints\Recaptcha;
+use OHMedia\AntispamBundle\Twig\Extension\RecaptchaExtension;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -46,6 +47,8 @@ class RecaptchaType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['recaptcha'] = $options['recaptcha'];
+
+        $view->vars['promise'] = RecaptchaExtension::JS_PROMISE;
     }
 
     public function getParent(): ?string

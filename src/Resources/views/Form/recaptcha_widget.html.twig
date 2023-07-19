@@ -1,7 +1,27 @@
 {%- block recaptcha_widget -%}
-  <div class="g-recaptcha"
-    data-sitekey="{{ recaptcha.sitekey }}"
-    data-theme="{{ recaptcha.theme }}"
-    data-size="{{ recaptcha.size }}">
-  </div>
+  <script>
+  (function(currentScript) {
+    async function load() {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = {{ form.vars.full_name|json_encode|raw }};
+      currentScript.after(input);
+
+      const container = document.createElement('div');
+      currentScript.after(container);
+
+      const parameters = {{ recaptcha|json_encode|raw }};
+
+      const recaptcha = await {{ promise }}(container, parameters);
+
+      const form = container.closest('form');
+
+      form.addEventListener('submit', () => {
+        input.value = recaptcha.getResponse();
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', load);
+  })(document.currentScript);
+  </script>
 {%- endblock -%}

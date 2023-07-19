@@ -18,3 +18,7 @@ services:
     OHMedia\AntispamBundle\Form\Extension\FormTypeHoneypotExtension:
         tags:
             - { name: form.type_extension }
+
+    OHMedia\AntispamBundle\Twig\Extension\RecaptchaExtension:
+        tags:
+            - { name: twig.extension }
