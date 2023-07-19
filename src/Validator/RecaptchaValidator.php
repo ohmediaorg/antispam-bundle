@@ -49,7 +49,9 @@ class RecaptchaValidator extends ConstraintValidator
         $result = @file_get_contents(self::RECAPTCHA_URL, false, $context);
 
         if (!$result) {
-            return false;
+            $this->context->addViolation($constraint->message);
+
+            return;
         }
 
         $json = @json_decode($result);
