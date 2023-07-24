@@ -31,5 +31,5 @@ function {{ promise }}(container, parameters) {
 {% if constant('OHMedia\\AntispamBundle\\DependencyInjection\\Configuration::CAPTCHA_TYPE_HCAPTCHA') == type %}
 <script src="https://js.hcaptcha.com/1/api.js?onload={{ callback }}&render=explicit&recaptchacompat=on" async defer></script>
 {% elseif constant('OHMedia\\AntispamBundle\\DependencyInjection\\Configuration::CAPTCHA_TYPE_RECAPTCHA') == type %}
-<script src="https://www.google.com/recaptcha/api.js?onload={{ callback }}&render=explicit"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload={{ callback }}&render=explicit" async defer></script>
 {% endif %}
