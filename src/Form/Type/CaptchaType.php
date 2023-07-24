@@ -2,8 +2,8 @@
 
 namespace OHMedia\AntispamBundle\Form\Type;
 
-use OHMedia\AntispamBundle\Validator\Constraints\Recaptcha;
-use OHMedia\AntispamBundle\Twig\Extension\RecaptchaExtension;
+use OHMedia\AntispamBundle\Validator\Constraints\Captcha;
+use OHMedia\AntispamBundle\Twig\Extension\CaptchaExtension;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RecaptchaType extends AbstractType
+class CaptchaType extends AbstractType
 {
     private $sitekey;
     private $theme;
@@ -27,13 +27,13 @@ class RecaptchaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'recaptcha' => [
+            'captcha' => [
                 'sitekey' => $this->sitekey,
                 'theme' => $this->theme,
                 'size' => $this->size
             ],
             'constraints' => [
-                new Recaptcha()
+                new Captcha()
             ],
             'label' => false,
         ]);
@@ -41,14 +41,14 @@ class RecaptchaType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->setAttribute('recaptcha', $options['recaptcha']);
+        $builder->setAttribute('captcha', $options['captcha']);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['recaptcha'] = $options['recaptcha'];
+        $view->vars['captcha'] = $options['captcha'];
 
-        $view->vars['promise'] = RecaptchaExtension::JS_PROMISE;
+        $view->vars['promise'] = CaptchaExtension::JS_PROMISE;
     }
 
     public function getParent(): ?string

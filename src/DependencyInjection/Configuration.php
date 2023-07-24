@@ -7,6 +7,9 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
+    const CAPTCHA_TYPE_HCAPTCHA = 'hcaptcha';
+    const CAPTCHA_TYPE_RECAPTCHA = 'recaptcha';
+
     /**
      * {@inheritdoc}
      */
@@ -16,26 +19,29 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder->getRootNode()
             ->children()
-                ->arrayNode('recaptcha')
+                ->arrayNode('captcha')
                     ->children()
-                        ->scalarNode('sitekey')
-                            ->defaultValue('6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI')
+                        ->scalarNode('type')
+                            ->defaultValue(self::CAPTCHA_TYPE_RECAPTCHA)
+                            ->validate()
+                                ->ifNotInArray([self::CAPTCHA_TYPE_RECAPTCHA, self::CAPTCHA_TYPE_HCAPTCHA])
+                                ->thenInvalid('Invalid captcha type %s')
+                            ->end()
                         ->end()
-                        ->scalarNode('secretkey')
-                            ->defaultValue('6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe')
-                        ->end()
+                        ->scalarNode('sitekey')->end()
+                        ->scalarNode('secretkey')->end()
                         ->scalarNode('theme')
                             ->defaultValue('light')
                             ->validate()
                                 ->ifNotInArray(['light', 'dark'])
-                                ->thenInvalid('Invalid reCAPTCHA theme %s')
+                                ->thenInvalid('Invalid captcha theme %s')
                             ->end()
                         ->end()
                         ->scalarNode('size')
                             ->defaultValue('normal')
                             ->validate()
                                 ->ifNotInArray(['normal', 'compact'])
-                                ->thenInvalid('Invalid reCAPTCHA size %s')
+                                ->thenInvalid('Invalid captcha size %s')
                             ->end()
                         ->end()
                     ->end()

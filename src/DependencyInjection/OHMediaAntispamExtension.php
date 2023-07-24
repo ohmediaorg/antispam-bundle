@@ -20,8 +20,18 @@ class OHMediaAntispamExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        foreach ($config['recaptcha'] as $key => $value) {
-            $container->setParameter("oh_media_antispam.recaptcha.$key", $value);
+        if (empty($config['captcha']['sitekey']) || empty($config['captcha']['secretkey'])) {
+            if (Configuration::CAPTCHA_TYPE_HCAPTCHA === $config['captcha']['type']) {
+                $config['captcha']['sitekey'] = '10000000-ffff-ffff-ffff-000000000001';
+                $config['captcha']['secretkey'] = '0x0000000000000000000000000000000000000000';
+            } elseif (Configuration::CAPTCHA_TYPE_RECAPTCHA === $config['captcha']['type']) {
+                $config['captcha']['sitekey'] = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+                $config['captcha']['secretkey'] = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
+            }
+        }
+
+        foreach ($config['captcha'] as $key => $value) {
+            $container->setParameter("oh_media_antispam.captcha.$key", $value);
         }
 
         $this->registerWidget($container);
@@ -32,7 +42,7 @@ class OHMediaAntispamExtension extends Extension
      */
     protected function registerWidget(ContainerBuilder $container)
     {
-        $resource = '@OHMediaAntispam/Form/recaptcha_widget.html.twig';
+        $resource = '@OHMediaAntispam/Form/captcha_widget.html.twig';
 
         $container->setParameter('twig.form.resources', array_merge(
             $container->getParameter('twig.form.resources'),

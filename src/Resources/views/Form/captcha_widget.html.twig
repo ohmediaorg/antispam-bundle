@@ -1,4 +1,4 @@
-{%- block recaptcha_widget -%}
+{%- block captcha_widget -%}
   <script>
   (function(currentScript) {
     async function load() {
@@ -10,14 +10,14 @@
       const container = document.createElement('div');
       currentScript.after(container);
 
-      const parameters = {{ recaptcha|json_encode|raw }};
+      const parameters = {{ captcha|json_encode|raw }};
 
-      const recaptcha = await {{ promise }}(container, parameters);
+      const captcha = await {{ promise }}(container, parameters);
 
       const form = container.closest('form');
 
       form.addEventListener('submit', () => {
-        input.value = recaptcha.getResponse();
+        input.value = captcha.getResponse();
       });
     }
 
