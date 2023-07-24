@@ -7,8 +7,8 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-    const CAPTCHA_TYPE_HCAPTCHA = 'hcaptcha';
-    const CAPTCHA_TYPE_RECAPTCHA = 'recaptcha';
+    public const CAPTCHA_TYPE_HCAPTCHA = 'hcaptcha';
+    public const CAPTCHA_TYPE_RECAPTCHA = 'recaptcha';
 
     /**
      * {@inheritdoc}
