@@ -1,25 +1,21 @@
 services:
     OHMedia\AntispamBundle\Form\Type\CaptchaType:
         arguments: ["%oh_media_antispam.captcha.sitekey%", "%oh_media_antispam.captcha.theme%", "%oh_media_antispam.captcha.size%"]
-        tags:
-            - { name: form.type }
+        tags: ["form.type"]
 
     oh_media_antispam.form.type.captcha:
         alias: OHMedia\AntispamBundle\Form\Type\CaptchaType
 
     OHMedia\AntispamBundle\Validator\CaptchaValidator:
         arguments: ["@request_stack", "%oh_media_antispam.captcha.secretkey%", "%oh_media_antispam.captcha.type%"]
-        tags:
-            - { name: validator.constraint_validator }
+        tags: ["validator.constraint_validator"]
 
     oh_media_antispam.validator.captcha:
         alias: OHMedia\AntispamBundle\Validator\CaptchaValidator
 
     OHMedia\AntispamBundle\Form\Extension\FormTypeHoneypotExtension:
-        tags:
-            - { name: form.type_extension }
+        tags: ["form.type_extension"]
 
     OHMedia\AntispamBundle\Twig\Extension\CaptchaExtension:
         arguments: ["%oh_media_antispam.captcha.type%"]
-        tags:
-            - { name: twig.extension }
+        tags: ["twig.extension"]
