@@ -19,9 +19,6 @@ class HoneypotExtension extends AbstractExtension
         $this->translationDomain = $translationDomain;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function loadTypeExtensions()
     {
         return [

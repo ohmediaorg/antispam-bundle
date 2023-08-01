@@ -6,7 +6,6 @@ use OHMedia\AntispamBundle\DependencyInjection\Configuration;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\Exception\ValidatorException;
 
 class CaptchaValidator extends ConstraintValidator
 {
@@ -26,9 +25,6 @@ class CaptchaValidator extends ConstraintValidator
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function validate($value, Constraint $constraint)
     {
         if (!$value) {
@@ -42,15 +38,15 @@ class CaptchaValidator extends ConstraintValidator
 
         $opts = ['http' => [
             'method' => 'POST',
-            'header'  => 'Content-type: application/x-www-form-urlencoded',
+            'header' => 'Content-type: application/x-www-form-urlencoded',
             'content' => http_build_query([
                 'secret' => $this->secretkey,
                 'response' => $value,
-                'remoteip' => $remoteip
-            ])
+                'remoteip' => $remoteip,
+            ]),
         ]];
 
-        $context  = stream_context_create($opts);
+        $context = stream_context_create($opts);
 
         $result = @file_get_contents($this->url, false, $context);
 

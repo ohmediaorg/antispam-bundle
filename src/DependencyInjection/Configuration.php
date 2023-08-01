@@ -10,9 +10,6 @@ class Configuration implements ConfigurationInterface
     public const CAPTCHA_TYPE_HCAPTCHA = 'hcaptcha';
     public const CAPTCHA_TYPE_RECAPTCHA = 'recaptcha';
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('oh_media_antispam');

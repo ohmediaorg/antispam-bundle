@@ -2,8 +2,8 @@
 
 namespace OHMedia\AntispamBundle\Form\Type;
 
-use OHMedia\AntispamBundle\Validator\Constraints\Captcha;
 use OHMedia\AntispamBundle\Twig\Extension\CaptchaExtension;
+use OHMedia\AntispamBundle\Validator\Constraints\Captcha;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,10 +30,10 @@ class CaptchaType extends AbstractType
             'captcha' => [
                 'sitekey' => $this->sitekey,
                 'theme' => $this->theme,
-                'size' => $this->size
+                'size' => $this->size,
             ],
             'constraints' => [
-                new Captcha()
+                new Captcha(),
             ],
             'label' => false,
         ]);

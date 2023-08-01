@@ -77,7 +77,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
                 'mapped' => false,
                 'attr' => [
                     'style' => 'position: absolute;left:-5000px;',
-                    'aria-hidden' => 'true'
+                    'aria-hidden' => 'true',
                 ],
                 'row_attr' => [
                     'class' => 'form-row-topyenoh',
@@ -88,9 +88,6 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
         $view->children[$options['honeypot_field_name']] = $honeypotForm->createView($view);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
@@ -100,9 +97,6 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getExtendedTypes(): iterable
     {
         return [FormType::class];

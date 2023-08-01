@@ -9,9 +9,9 @@ use Twig\TwigFunction;
 class CaptchaExtension extends AbstractExtension
 {
     public const JS_PREFIX = 'ohmedia_antispam_bundle_captcha_';
-    public const JS_CALLBACK = self::JS_PREFIX . 'callback';
-    public const JS_BOOLEAN = self::JS_PREFIX . 'boolean';
-    public const JS_PROMISE = self::JS_PREFIX . 'promise';
+    public const JS_CALLBACK = self::JS_PREFIX.'callback';
+    public const JS_BOOLEAN = self::JS_PREFIX.'boolean';
+    public const JS_PROMISE = self::JS_PREFIX.'promise';
 
     private $rendered = false;
 
