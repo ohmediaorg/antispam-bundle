@@ -16,6 +16,6 @@ services:
     OHMedia\AntispamBundle\Form\Extension\FormTypeHoneypotExtension:
         tags: ["form.type_extension"]
 
-    OHMedia\AntispamBundle\Twig\Extension\CaptchaExtension:
+    OHMedia\AntispamBundle\Twig\CaptchaExtension:
         arguments: ["%oh_media_antispam.captcha.type%"]
         tags: ["twig.extension"]

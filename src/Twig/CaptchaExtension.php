@@ -1,6 +1,6 @@
 <?php
 
-namespace OHMedia\AntispamBundle\Twig\Extension;
+namespace OHMedia\AntispamBundle\Twig;
 
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
