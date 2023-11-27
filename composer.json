@@ -1,5 +1,5 @@
 {
-    "name": "justin-oh/anti-spam-bundle",
+    "name": "ohmediaorg/antispam-bundle",
     "type": "symfony-bundle",
     "description": "Symfony AntispamBundle",
     "keywords": ["Anti-spam"],
