@@ -25,7 +25,7 @@ class CaptchaValidator extends ConstraintValidator
         }
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$value) {
             $this->context->addViolation($constraint->message);
