@@ -32,7 +32,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
     /**
      * Adds a honeypot field to the form when the honeypot protection is enabled.
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if (!$options['honeypot_protection']) {
             return;
@@ -52,7 +52,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
     /**
      * Adds a honeypot field to the root form view.
      */
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         if (!$options['honeypot_protection']) {
             return;
@@ -88,7 +88,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
         $view->children[$options['honeypot_field_name']] = $honeypotForm->createView($view);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'honeypot_protection' => false,
