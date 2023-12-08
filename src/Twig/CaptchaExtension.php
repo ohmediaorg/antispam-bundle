@@ -14,6 +14,7 @@ class CaptchaExtension extends AbstractExtension
     public const JS_PROMISE = self::JS_PREFIX.'promise';
 
     private $rendered = false;
+    private $type;
 
     public function __construct(string $type)
     {
