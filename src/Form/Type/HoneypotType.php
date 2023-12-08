@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class HoneypotType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $attr = [
             'tabindex' => '-1',
