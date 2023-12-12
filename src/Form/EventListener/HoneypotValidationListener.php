@@ -17,7 +17,7 @@ class HoneypotValidationListener implements EventSubscriberInterface
     private $translationDomain;
     private $serverParams;
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             FormEvents::PRE_SUBMIT => 'preSubmit',
