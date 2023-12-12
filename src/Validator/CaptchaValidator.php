@@ -33,8 +33,8 @@ class CaptchaValidator extends ConstraintValidator
             return;
         }
 
-        $masterRequest = $this->requestStack->getMasterRequest();
-        $remoteip = $masterRequest->getClientIp();
+        $mainRequest = $this->requestStack->getMainRequest();
+        $remoteip = $mainRequest->getClientIp();
 
         $opts = ['http' => [
             'method' => 'POST',
