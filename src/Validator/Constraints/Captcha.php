@@ -12,7 +12,7 @@ class Captcha extends Constraint
 {
     public $message = 'Captcha verification was unsuccessful.';
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return CaptchaValidator::class;
     }
