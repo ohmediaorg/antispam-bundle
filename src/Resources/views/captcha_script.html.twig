@@ -50,10 +50,18 @@ function OHMEDIA_ANTISPAM_CAPTCHA_PROMISE(container, parameters) {
     delete container.dataset[DATE_ATTRIBUTE_CAMEL];
 
     const parameters = {
-      sitekey: container.dataset.sitekey ?? {{ sitekey|json_encode|raw }},
-      theme: container.dataset.theme ?? {{ theme|json_encode|raw }},
-      size: container.dataset.size ?? {{ size|json_encode|raw }},
+      sitekey: {{ sitekey|json_encode|raw }},
+      theme: container.dataset.theme,
+      size: container.dataset.size,
     };
+
+    if (!parameters.theme) {
+      parameters.theme = {{ theme|json_encode|raw }};
+    }
+
+    if (!parameters.size) {
+      parameters.size = {{ size|json_encode|raw }};
+    }
 
     const captcha = await OHMEDIA_ANTISPAM_CAPTCHA_PROMISE(container, parameters);
 
