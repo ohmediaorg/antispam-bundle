@@ -1,6 +1,5 @@
 services:
     OHMedia\AntispamBundle\Form\Type\CaptchaType:
-        arguments: ["%oh_media_antispam.captcha.sitekey%", "%oh_media_antispam.captcha.theme%", "%oh_media_antispam.captcha.size%"]
         tags: ["form.type"]
 
     oh_media_antispam.form.type.captcha:
@@ -17,5 +16,5 @@ services:
         tags: ["form.type_extension"]
 
     OHMedia\AntispamBundle\Twig\CaptchaExtension:
-        arguments: ["%oh_media_antispam.captcha.type%"]
+        arguments: ["%oh_media_antispam.captcha.type%", "%oh_media_antispam.captcha.sitekey%", "%oh_media_antispam.captcha.theme%", "%oh_media_antispam.captcha.size%"]
         tags: ["twig.extension"]
