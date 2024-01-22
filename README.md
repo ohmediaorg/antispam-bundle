@@ -78,7 +78,7 @@ If you need more from Captcha (like resetting after a JS submit) or you need
 to custom render it, you can initialize it yourself like so:
 
 ```js
-const captcha = await ohmedia_antispam_bundle_captcha_promise(container, parameters);
+const captcha = await OHMEDIA_ANTISPAM_CAPTCHA_PROMISE(container, parameters);
 
 // call "captcha.getResponse()" to populate a hidden input / posted data
 // call "captcha.reset()" to make the user redo the challenge
