@@ -2,23 +2,28 @@
 
 namespace OHMedia\AntispamBundle\Twig;
 
+use OHMedia\AntispamBundle\DependencyInjection\Configuration;
+use OHMedia\AntispamBundle\Form\Type\CaptchaType;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class CaptchaExtension extends AbstractExtension
 {
-    public const JS_PREFIX = 'ohmedia_antispam_bundle_captcha_';
-    public const JS_CALLBACK = self::JS_PREFIX.'callback';
-    public const JS_BOOLEAN = self::JS_PREFIX.'boolean';
-    public const JS_PROMISE = self::JS_PREFIX.'promise';
-
     private $rendered = false;
-    private $type;
+    private $typeHcaptcha;
+    private $typeRecaptcha;
+    private $sitekey;
+    private $theme;
+    private $size;
 
-    public function __construct(string $type)
+    public function __construct(string $type, string $sitekey, string $theme, string $size)
     {
-        $this->type = $type;
+        $this->typeHcaptcha = Configuration::CAPTCHA_TYPE_HCAPTCHA === $type;
+        $this->typeRecaptcha = Configuration::CAPTCHA_TYPE_RECAPTCHA === $type;
+        $this->sitekey = $sitekey;
+        $this->theme = $theme;
+        $this->size = $size;
     }
 
     public function getFunctions(): array
@@ -40,10 +45,12 @@ class CaptchaExtension extends AbstractExtension
         $this->rendered = true;
 
         return $twig->render('@OHMediaAntispam/captcha_script.html.twig', [
-            'callback' => self::JS_CALLBACK,
-            'boolean' => self::JS_BOOLEAN,
-            'promise' => self::JS_PROMISE,
-            'type' => $this->type,
+            'DATA_ATTRIBUTE' => CaptchaType::DATA_ATTRIBUTE,
+            'typeHcaptcha' => $this->typeHcaptcha,
+            'typeRecaptcha' => $this->typeRecaptcha,
+            'sitekey' => $this->sitekey,
+            'theme' => $this->theme,
+            'size' => $this->size,
         ]);
     }
 }

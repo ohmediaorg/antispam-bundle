@@ -1,27 +1,8 @@
 {%- block captcha_widget -%}
-  <script>
-  (function(currentScript) {
-    async function load() {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = {{ form.vars.full_name|json_encode|raw }};
-      currentScript.after(input);
-
-      const container = document.createElement('div');
-      currentScript.after(container);
-
-      const parameters = {{ captcha|json_encode|raw }};
-
-      const captcha = await {{ promise }}(container, parameters);
-
-      const form = container.closest('form');
-
-      form.addEventListener('submit', () => {
-        input.value = captcha.getResponse();
-      });
-    }
-
-    document.addEventListener('DOMContentLoaded', load);
-  })(document.currentScript);
-  </script>
+  <div
+    {{ DATA_ATTRIBUTE }}="{{ form.vars.full_name }}"
+    data-theme="{{ theme|e('html_attr') }}"
+    data-size="{{ size|e('html_attr') }}"
+  >
+  </div>
 {%- endblock -%}

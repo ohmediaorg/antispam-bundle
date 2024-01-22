@@ -1,14 +1,15 @@
 <script>
-let {{ boolean }} = false;
+// global values for 3rd party captcha script
+let OHMEDIA_ANTISPAM_CAPTCHA_LOADED = false;
 
-function {{ callback }}() {
-  {{ boolean }} = true;
+function OHMEDIA_ANTISPAM_CAPTCHA_CALLBACK() {
+  OHMEDIA_ANTISPAM_CAPTCHA_LOADED = true;
 }
 
-function {{ promise }}(container, parameters) {
+function OHMEDIA_ANTISPAM_CAPTCHA_PROMISE(container, parameters) {
   return new Promise((resolve) => {
     let interval = setInterval(() => {
-      if ({{ boolean }}) {
+      if (OHMEDIA_ANTISPAM_CAPTCHA_LOADED) {
         clearInterval(interval);
 
         const widgetId = grecaptcha.render(container, parameters);
@@ -26,10 +27,74 @@ function {{ promise }}(container, parameters) {
     }, 100);
   });
 }
+
+(function () {
+  const DATA_ATTRIBUTE = {{ DATA_ATTRIBUTE|json_encode|raw }};
+  const DATE_ATTRIBUTE_CAMEL = DATA_ATTRIBUTE.replace('data-', '').replace(/-./g, x=>x[1].toUpperCase());
+
+  async function initCaptchas(parent) {
+    const containers = parent.querySelectorAll(`[${DATA_ATTRIBUTE}]`);
+
+    for (const container of containers) {
+      initCaptcha(container);
+    }
+  }
+
+  async function initCaptcha(container) {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = container.dataset[DATE_ATTRIBUTE_CAMEL];
+
+    container.after(input);
+
+    delete container.dataset[DATE_ATTRIBUTE_CAMEL];
+
+    const parameters = {
+      sitekey: {{ sitekey|json_encode|raw }},
+      theme: container.dataset.theme,
+      size: container.dataset.size,
+    };
+
+    if (!parameters.theme) {
+      parameters.theme = {{ theme|json_encode|raw }};
+    }
+
+    if (!parameters.size) {
+      parameters.size = {{ size|json_encode|raw }};
+    }
+
+    const captcha = await OHMEDIA_ANTISPAM_CAPTCHA_PROMISE(container, parameters);
+
+    const form = container.closest('form');
+
+    form.addEventListener('submit', () => {
+      input.value = captcha.getResponse();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initCaptchas(document);
+
+    const observer = new MutationObserver(function(mutationList, observer) {
+      for (const mutation of mutationList) {
+        if ('childList' !== mutation.type) {
+          continue;
+        }
+
+        initCaptchas(mutation.target);
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+  });
+})();
 </script>
 
-{% if constant('OHMedia\\AntispamBundle\\DependencyInjection\\Configuration::CAPTCHA_TYPE_HCAPTCHA') == type %}
-<script src="https://js.hcaptcha.com/1/api.js?onload={{ callback }}&render=explicit&recaptchacompat=on" async defer></script>
-{% elseif constant('OHMedia\\AntispamBundle\\DependencyInjection\\Configuration::CAPTCHA_TYPE_RECAPTCHA') == type %}
-<script src="https://www.google.com/recaptcha/api.js?onload={{ callback }}&render=explicit" async defer></script>
+{% if typeHcaptcha %}
+<script src="https://js.hcaptcha.com/1/api.js?onload=OHMEDIA_ANTISPAM_CAPTCHA_CALLBACK&render=explicit&recaptchacompat=on" async defer></script>
+{% elseif typeRecaptcha %}
+<script src="https://www.google.com/recaptcha/api.js?onload=OHMEDIA_ANTISPAM_CAPTCHA_CALLBACK&render=explicit" async defer></script>
 {% endif %}
