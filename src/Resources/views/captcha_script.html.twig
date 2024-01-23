@@ -30,7 +30,7 @@ function OHMEDIA_ANTISPAM_CAPTCHA_PROMISE(container, parameters) {
 
 (function () {
   const DATA_ATTRIBUTE = {{ DATA_ATTRIBUTE|json_encode|raw }};
-  const DATE_ATTRIBUTE_CAMEL = DATA_ATTRIBUTE.replace('data-', '').replace(/-./g, x=>x[1].toUpperCase());
+  const DATA_ATTRIBUTE_CAMEL = DATA_ATTRIBUTE.replace('data-', '').replace(/-./g, x=>x[1].toUpperCase());
 
   async function initCaptchas(parent) {
     const containers = parent.querySelectorAll(`[${DATA_ATTRIBUTE}]`);
@@ -43,11 +43,11 @@ function OHMEDIA_ANTISPAM_CAPTCHA_PROMISE(container, parameters) {
   async function initCaptcha(container) {
     const input = document.createElement('input');
     input.type = 'hidden';
-    input.name = container.dataset[DATE_ATTRIBUTE_CAMEL];
+    input.name = container.dataset[DATA_ATTRIBUTE_CAMEL];
 
     container.after(input);
 
-    delete container.dataset[DATE_ATTRIBUTE_CAMEL];
+    delete container.dataset[DATA_ATTRIBUTE_CAMEL];
 
     const parameters = {
       sitekey: {{ sitekey|json_encode|raw }},
