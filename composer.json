@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Symfony AntispamBundle",
     "keywords": ["Anti-spam"],
-    "license": "MIT",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Justin Hoffman",
