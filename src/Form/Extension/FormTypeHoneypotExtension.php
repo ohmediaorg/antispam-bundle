@@ -80,7 +80,7 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
                     'aria-hidden' => 'true',
                 ],
                 'row_attr' => [
-                    'class' => 'form-row-topyenoh',
+                    'class' => 'fieldset-nostyle',
                 ],
             ]
         );
