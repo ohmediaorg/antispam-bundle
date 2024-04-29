@@ -16,5 +16,10 @@
     },
     "autoload": {
         "psr-4": { "OHMedia\\AntispamBundle\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OHMedia\\AntispamBundle\\Tests\\": "tests/"
+        }
     }
 }
