@@ -4,7 +4,6 @@ namespace OHMedia\AntispamBundle\Twig;
 
 use OHMedia\AntispamBundle\Form\Type\CaptchaType;
 use OHMedia\AntispamBundle\OHMediaAntispamBundle;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -16,13 +15,9 @@ class CaptchaExtension extends AbstractExtension
     private $isTypeRecaptcha;
 
     public function __construct(
-        #[Autowire('%oh_media_antispam.captcha.type%')]
         private string $type,
-        #[Autowire('%oh_media_antispam.captcha.sitekey%')]
         private string $sitekey,
-        #[Autowire('%oh_media_antispam.captcha.theme%')]
         private string $theme,
-        #[Autowire('%oh_media_antispam.captcha.size%')]
         private string $size
     ) {
         $this->isTypeHcaptcha = OHMediaAntispamBundle::CAPTCHA_TYPE_HCAPTCHA === $type;
