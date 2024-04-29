@@ -11,14 +11,11 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Util\ServerParams;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FormTypeHoneypotExtension extends AbstractTypeExtension
 {
     public function __construct(
-        private TranslatorInterface $translator = null,
-        private string $translationDomain = null,
-        private ServerParams $serverParams = null
+        private ?ServerParams $serverParams
     ) {
     }
 
@@ -35,8 +32,6 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
             ->addEventSubscriber(new HoneypotValidationListener(
                 $options['honeypot_field_name'],
                 $options['honeypot_message'],
-                $this->translator,
-                $this->translationDomain,
                 $this->serverParams
             ))
         ;

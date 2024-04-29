@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Util\ServerParams;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HoneypotValidationListener implements EventSubscriberInterface
 {
@@ -21,9 +20,7 @@ class HoneypotValidationListener implements EventSubscriberInterface
     public function __construct(
         private string $fieldName,
         private string $errorMessage,
-        private TranslatorInterface $translator = null,
-        private string $translationDomain = null,
-        private ServerParams $serverParams = null
+        private ?ServerParams $serverParams
     ) {
         $this->serverParams = $serverParams ?: new ServerParams();
     }
@@ -64,10 +61,6 @@ class HoneypotValidationListener implements EventSubscriberInterface
 
         if ($isHoneypotFilled) {
             $errorMessage = $this->errorMessage;
-
-            if (null !== $this->translator) {
-                $errorMessage = $this->translator->trans($errorMessage, [], $this->translationDomain);
-            }
 
             $form->addError(new FormError($errorMessage));
         }

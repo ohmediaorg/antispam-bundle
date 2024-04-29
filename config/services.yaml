@@ -10,3 +10,6 @@ services:
             - '../src/Form/Extension/'
             - '../src/Form/EventListener/'
             - '../src/Validator/Constraints/Captcha.php'
+
+    OHMedia\AntispamBundle\Form\Extension\FormTypeHoneypotExtension:
+        tags: ["form.type_extension"]
