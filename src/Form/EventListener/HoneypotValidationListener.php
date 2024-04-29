@@ -11,12 +11,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HoneypotValidationListener implements EventSubscriberInterface
 {
-    private $fieldName;
-    private $errorMessage;
-    private $translator;
-    private $translationDomain;
-    private $serverParams;
-
     public static function getSubscribedEvents(): array
     {
         return [
@@ -25,16 +19,12 @@ class HoneypotValidationListener implements EventSubscriberInterface
     }
 
     public function __construct(
-        string $fieldName,
-        string $errorMessage,
-        TranslatorInterface $translator = null,
-        string $translationDomain = null,
-        ServerParams $serverParams = null
+        private string $fieldName,
+        private string $errorMessage,
+        private TranslatorInterface $translator = null,
+        private string $translationDomain = null,
+        private ServerParams $serverParams = null
     ) {
-        $this->fieldName = $fieldName;
-        $this->errorMessage = $errorMessage;
-        $this->translator = $translator;
-        $this->translationDomain = $translationDomain;
         $this->serverParams = $serverParams ?: new ServerParams();
     }
 

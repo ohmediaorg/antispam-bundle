@@ -10,16 +10,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class HoneypotExtension extends AbstractExtension
 {
-    private $translator;
-    private $translationDomain;
-
-    public function __construct(TranslatorInterface $translator = null, string $translationDomain = null)
-    {
-        $this->translator = $translator;
-        $this->translationDomain = $translationDomain;
+    public function __construct(
+        private TranslatorInterface $translator = null,
+        private string $translationDomain = null
+    ) {
     }
 
-    protected function loadTypeExtensions()
+    protected function loadTypeExtensions(): array
     {
         return [
             new FormTypeHoneypotExtension($this->translator, $this->translationDomain),

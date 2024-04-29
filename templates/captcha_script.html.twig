@@ -93,8 +93,8 @@ function OHMEDIA_ANTISPAM_CAPTCHA_PROMISE(container, parameters) {
 })();
 </script>
 
-{% if typeHcaptcha %}
+{% if is_type_hcaptcha %}
 <script src="https://js.hcaptcha.com/1/api.js?onload=OHMEDIA_ANTISPAM_CAPTCHA_CALLBACK&render=explicit&recaptchacompat=on" async defer></script>
-{% elseif typeRecaptcha %}
+{% elseif is_type_recaptcha %}
 <script src="https://www.google.com/recaptcha/api.js?onload=OHMEDIA_ANTISPAM_CAPTCHA_CALLBACK&render=explicit" async defer></script>
 {% endif %}

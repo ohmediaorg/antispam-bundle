@@ -15,18 +15,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FormTypeHoneypotExtension extends AbstractTypeExtension
 {
-    private $translator;
-    private $translationDomain;
-    private $serverParams;
-
     public function __construct(
-        TranslatorInterface $translator = null,
-        string $translationDomain = null,
-        ServerParams $serverParams = null
+        private TranslatorInterface $translator = null,
+        private string $translationDomain = null,
+        private ServerParams $serverParams = null
     ) {
-        $this->translator = $translator;
-        $this->translationDomain = $translationDomain;
-        $this->serverParams = $serverParams;
     }
 
     /**

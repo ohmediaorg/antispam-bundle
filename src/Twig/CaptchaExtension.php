@@ -2,8 +2,9 @@
 
 namespace OHMedia\AntispamBundle\Twig;
 
-use OHMedia\AntispamBundle\DependencyInjection\Configuration;
 use OHMedia\AntispamBundle\Form\Type\CaptchaType;
+use OHMedia\AntispamBundle\OHMediaAntispamBundle;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -11,19 +12,21 @@ use Twig\TwigFunction;
 class CaptchaExtension extends AbstractExtension
 {
     private $rendered = false;
-    private $typeHcaptcha;
-    private $typeRecaptcha;
-    private $sitekey;
-    private $theme;
-    private $size;
+    private $isTypeHcaptcha;
+    private $isTypeRecaptcha;
 
-    public function __construct(string $type, string $sitekey, string $theme, string $size)
-    {
-        $this->typeHcaptcha = Configuration::CAPTCHA_TYPE_HCAPTCHA === $type;
-        $this->typeRecaptcha = Configuration::CAPTCHA_TYPE_RECAPTCHA === $type;
-        $this->sitekey = $sitekey;
-        $this->theme = $theme;
-        $this->size = $size;
+    public function __construct(
+        #[Autowire('%oh_media_antispam.captcha.type')]
+        private string $type,
+        #[Autowire('%oh_media_antispam.captcha.sitekey')]
+        private string $sitekey,
+        #[Autowire('%oh_media_antispam.captcha.theme')]
+        private string $theme,
+        #[Autowire('%oh_media_antispam.captcha.size')]
+        private string $size
+    ) {
+        $this->isTypeHcaptcha = OHMediaAntispamBundle::CAPTCHA_TYPE_HCAPTCHA === $type;
+        $this->isTypeRecaptcha = OHMediaAntispamBundle::CAPTCHA_TYPE_RECAPTCHA === $type;
     }
 
     public function getFunctions(): array
@@ -46,8 +49,8 @@ class CaptchaExtension extends AbstractExtension
 
         return $twig->render('@OHMediaAntispam/captcha_script.html.twig', [
             'DATA_ATTRIBUTE' => CaptchaType::DATA_ATTRIBUTE,
-            'typeHcaptcha' => $this->typeHcaptcha,
-            'typeRecaptcha' => $this->typeRecaptcha,
+            'is_type_hcaptcha' => $this->isTypeHcaptcha,
+            'is_type_recaptcha' => $this->isTypeRecaptcha,
             'sitekey' => $this->sitekey,
             'theme' => $this->theme,
             'size' => $this->size,

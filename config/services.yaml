@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    OHMedia\AntispamBundle\:
+        resource: '../src/'
+        exclude:
+            - '../src/OHMediaAntispamBundle.php'
+            - '../src/Form/Extension/'
+            - '../src/Form/EventListener/'
+            - '../src/Validator/Constraints/Captcha.php'
