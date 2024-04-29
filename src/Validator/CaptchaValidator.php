@@ -14,9 +14,9 @@ class CaptchaValidator extends ConstraintValidator
 
     public function __construct(
         private RequestStack $requestStack,
-        #[Autowire('%oh_media_antispam.captcha.secretkey')]
+        #[Autowire('%oh_media_antispam.captcha.secretkey%')]
         private string $secretkey,
-        #[Autowire('%oh_media_antispam.captcha.type')]
+        #[Autowire('%oh_media_antispam.captcha.type%')]
         private string $type
     ) {
         if (OHMediaAntispamBundle::CAPTCHA_TYPE_HCAPTCHA === $type) {

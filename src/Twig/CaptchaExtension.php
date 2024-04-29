@@ -16,13 +16,13 @@ class CaptchaExtension extends AbstractExtension
     private $isTypeRecaptcha;
 
     public function __construct(
-        #[Autowire('%oh_media_antispam.captcha.type')]
+        #[Autowire('%oh_media_antispam.captcha.type%')]
         private string $type,
-        #[Autowire('%oh_media_antispam.captcha.sitekey')]
+        #[Autowire('%oh_media_antispam.captcha.sitekey%')]
         private string $sitekey,
-        #[Autowire('%oh_media_antispam.captcha.theme')]
+        #[Autowire('%oh_media_antispam.captcha.theme%')]
         private string $theme,
-        #[Autowire('%oh_media_antispam.captcha.size')]
+        #[Autowire('%oh_media_antispam.captcha.size%')]
         private string $size
     ) {
         $this->isTypeHcaptcha = OHMediaAntispamBundle::CAPTCHA_TYPE_HCAPTCHA === $type;
