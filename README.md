@@ -4,15 +4,16 @@ Offers a few methods for anti-spam in forms.
 
 ## Installation
 
-Enable the bundle in `config/bundles.php`:
+Update `composer.json` by adding this to the `repositories` array:
 
-```php
-return [
-    // ...
-    OHMedia\AntispamBundle\OHMediaAntispamBundle::class => ['all' => true],
-];
+```json
+{
+    "type": "vcs",
+    "url": "https://github.com/ohmediaorg/antispam-bundle"
+}
 ```
 
+Then run `composer require ohmediaorg/antispam-bundle:dev-main`.
 
 ## Honeypot
 
@@ -48,7 +49,6 @@ Under `captcha` you can specify `type` as "hcaptcha" or "recaptcha" (default).
 _**Note:** `sitekey` and `secretkey` are omitted in the default config because the bundle
 will provide test keys._
 
-
 Override on the live site with `config/packages/prod/oh_media_antispam.yaml`:
 
 ```yaml
@@ -81,5 +81,5 @@ to custom render it, you can initialize it yourself like so:
 const captcha = await OHMEDIA_ANTISPAM_CAPTCHA_PROMISE(container, parameters);
 
 // call "captcha.getResponse()" to populate a hidden input / posted data
-// call "captcha.reset()" to make the user redo the challenge
+// call "captcha.reset()" to make users redo the challenge
 ```
