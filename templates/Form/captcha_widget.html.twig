@@ -3,6 +3,7 @@
     {{ DATA_ATTRIBUTE }}="{{ form.vars.full_name }}"
     data-theme="{{ theme|e('html_attr') }}"
     data-size="{{ size|e('html_attr') }}"
+    {% if not valid %}class="is-invalid"{% endif %}
   >
   </div>
 {%- endblock -%}
