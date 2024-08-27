@@ -29,7 +29,7 @@ function OHMEDIA_ANTISPAM_CAPTCHA_PROMISE(container, parameters) {
 }
 
 (function () {
-  const DATA_ATTRIBUTE = {{ DATA_ATTRIBUTE|json_encode|raw }};
+  const DATA_ATTRIBUTE = {{ DATA_ATTRIBUTE|js }};
   const DATA_ATTRIBUTE_CAMEL = DATA_ATTRIBUTE.replace('data-', '').replace(/-./g, x=>x[1].toUpperCase());
 
   async function initCaptchas(parent) {
@@ -50,17 +50,17 @@ function OHMEDIA_ANTISPAM_CAPTCHA_PROMISE(container, parameters) {
     delete container.dataset[DATA_ATTRIBUTE_CAMEL];
 
     const parameters = {
-      sitekey: {{ sitekey|json_encode|raw }},
+      sitekey: {{ sitekey|js }},
       theme: container.dataset.theme,
       size: container.dataset.size,
     };
 
     if (!parameters.theme) {
-      parameters.theme = {{ theme|json_encode|raw }};
+      parameters.theme = {{ theme|js }};
     }
 
     if (!parameters.size) {
-      parameters.size = {{ size|json_encode|raw }};
+      parameters.size = {{ size|js }};
     }
 
     const captcha = await OHMEDIA_ANTISPAM_CAPTCHA_PROMISE(container, parameters);
