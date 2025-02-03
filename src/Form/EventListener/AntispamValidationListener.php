@@ -47,17 +47,13 @@ class AntispamValidationListener implements EventSubscriberInterface
             return;
         }
 
-        $request = $this->requestStack->getMainRequest();
-
         if ($this->security->isGranted('IS_AUTHENTICATED')) {
             // return;
         }
 
-        $form->addError(new FormError('got here'));
+        $request = $this->requestStack->getMainRequest();
 
         $session = $request->getSession();
-
-        $uri = $request->getRequestUri();
 
         $key = self::class;
 
@@ -92,7 +88,7 @@ class AntispamValidationListener implements EventSubscriberInterface
                 $session->getFlashBag()->add('error', $message);
             }
         } elseif ($count > 1) {
-            --$count;
+            $count = floor($count / 2);
         }
 
         if ($count > 0) {
