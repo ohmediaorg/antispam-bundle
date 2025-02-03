@@ -10,19 +10,21 @@ use Symfony\Component\Form\Util\ServerParams;
 
 class HoneypotValidationListener implements EventSubscriberInterface
 {
+    private ServerParams $serverParams;
+
+    public function __construct(
+        private string $fieldName,
+        private string $errorMessage,
+        ?ServerParams $serverParams,
+    ) {
+        $this->serverParams = $serverParams ?: new ServerParams();
+    }
+
     public static function getSubscribedEvents(): array
     {
         return [
             FormEvents::PRE_SUBMIT => 'preSubmit',
         ];
-    }
-
-    public function __construct(
-        private string $fieldName,
-        private string $errorMessage,
-        private ?ServerParams $serverParams
-    ) {
-        $this->serverParams = $serverParams ?: new ServerParams();
     }
 
     public function preSubmit(FormEvent $event)

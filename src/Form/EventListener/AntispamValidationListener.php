@@ -1,0 +1,111 @@
+<?php
+
+namespace OHMedia\AntispamBundle\Form\EventListener;
+
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\Util\ServerParams;
+use Symfony\Component\HttpFoundation\RequestStack;
+
+class AntispamValidationListener implements EventSubscriberInterface
+{
+    private ServerParams $serverParams;
+
+    public function __construct(
+        private RequestStack $requestStack,
+        private Security $security,
+        ?ServerParams $serverParams,
+    ) {
+        $this->serverParams = $serverParams ?: new ServerParams();
+    }
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            FormEvents::PRE_SUBMIT => 'preSubmit',
+        ];
+    }
+
+    public function preSubmit(FormEvent $event)
+    {
+        $form = $event->getForm();
+
+        $isMethodPost = 'POST' === $form->getConfig()->getMethod();
+
+        if ($isMethodPost && $this->serverParams->hasPostMaxSizeBeenExceeded()) {
+            return;
+        }
+
+        if (!$form->isRoot()) {
+            return;
+        }
+
+        if (!$form->getConfig()->getOption('compound')) {
+            return;
+        }
+
+        $request = $this->requestStack->getMainRequest();
+
+        if ($this->security->isGranted('IS_AUTHENTICATED')) {
+            // return;
+        }
+
+        $form->addError(new FormError('got here'));
+
+        $session = $request->getSession();
+
+        $uri = $request->getRequestUri();
+
+        $key = self::class;
+
+        $data = $session->get($key, []);
+
+        $now = time();
+
+        $count = $data['count'] ?? 1;
+
+        $allowedAfter = $data['allowed_after'] ?? $now;
+
+        $updateAllowedAfter = true;
+
+        if ($allowedAfter > $now) {
+            $diff = $allowedAfter - $now;
+
+            $updateAllowedAfter = false;
+
+            // If someone keeps trying to spam the form,
+            // this increases the time they have to wait
+            // on subsequent requests.
+            ++$count;
+
+            $message = sprintf(
+                'Anti-spam prevention: please wait %s seconds before submitting again.',
+                $diff,
+            );
+
+            $form->addError(new FormError($message));
+
+            if (!$request->isXmlHttpRequest()) {
+                $session->getFlashBag()->add('error', $message);
+            }
+        } elseif ($count > 1) {
+            --$count;
+        }
+
+        if ($count > 0) {
+            if ($updateAllowedAfter) {
+                $allowedAfter = $now + $count * 5;
+            }
+
+            $session->set($key, [
+                'allowed_after' => $allowedAfter,
+                'count' => $count,
+            ]);
+        } else {
+            $session->set($key, []);
+        }
+    }
+}

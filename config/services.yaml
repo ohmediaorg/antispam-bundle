@@ -14,7 +14,6 @@ services:
         arguments: ["%oh_media_antispam.captcha.type%", "%oh_media_antispam.captcha.sitekey%", "%oh_media_antispam.captcha.theme%", "%oh_media_antispam.captcha.size%"]
         tags: ["twig.extension"]
 
-    OHMedia\AntispamBundle\EventListener\AntispamListener:
+    OHMedia\AntispamBundle\Form\Extension\FormTypeAntispamExtension:
         autowire: true
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+        tags: ["form.type_extension"]
