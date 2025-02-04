@@ -91,7 +91,7 @@ class ThrottleValidationListener implements EventSubscriberInterface
                 $session->getFlashBag()->add('error', $message);
             }
         } else {
-            // if 5 minutes have elapsed, reset the count to 1
+            // if the window has elapsed, reset the count to 1
             if ($diff < -$this->throttleWindow) {
                 $count = 1;
             }
