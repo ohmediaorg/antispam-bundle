@@ -48,7 +48,7 @@ class AntispamValidationListener implements EventSubscriberInterface
         }
 
         if ($this->security->isGranted('IS_AUTHENTICATED')) {
-            // return;
+            return;
         }
 
         $request = $this->requestStack->getMainRequest();
