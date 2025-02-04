@@ -61,24 +61,17 @@ class AntispamValidationListener implements EventSubscriberInterface
 
         $now = time();
 
-        $count = $data['count'] ?? 1;
+        $count = $data['count'] ?? 0;
 
         $allowedAfter = $data['allowed_after'] ?? $now;
 
-        $updateAllowedAfter = true;
+        $diff = $allowedAfter - $now;
 
-        if ($allowedAfter > $now) {
-            $diff = $allowedAfter - $now;
+        ++$count;
 
-            $updateAllowedAfter = false;
-
-            // If someone keeps trying to spam the form,
-            // this increases the time they have to wait
-            // on subsequent requests.
-            ++$count;
-
+        if ($diff > 0) {
             $message = sprintf(
-                'Anti-spam prevention: please wait %s seconds before submitting again.',
+                'Spam prevention: please wait %s seconds before submitting again.',
                 $diff,
             );
 
@@ -87,21 +80,18 @@ class AntispamValidationListener implements EventSubscriberInterface
             if (!$request->isXmlHttpRequest()) {
                 $session->getFlashBag()->add('error', $message);
             }
-        } elseif ($count > 1) {
-            $count = floor($count / 2);
-        }
-
-        if ($count > 0) {
-            if ($updateAllowedAfter) {
-                $allowedAfter = $now + $count * 5;
+        } else {
+            // if 5 minutes have elapsed, reset the count to 1
+            if ($diff < -300) {
+                $count = 1;
             }
 
-            $session->set($key, [
-                'allowed_after' => $allowedAfter,
-                'count' => $count,
-            ]);
-        } else {
-            $session->set($key, []);
+            $allowedAfter = $now + $count * 5;
         }
+
+        $session->set($key, [
+            'allowed_after' => $allowedAfter,
+            'count' => $count,
+        ]);
     }
 }
