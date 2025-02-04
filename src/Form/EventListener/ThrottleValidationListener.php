@@ -22,11 +22,11 @@ class ThrottleValidationListener implements EventSubscriberInterface
         ?ServerParams $serverParams,
     ) {
         if ($throttleWindow < 0) {
-            throw new \ValueError('`throttleWindow` should be a positive integer.');
+            throw new \ValueError('$throttleWindow should be a positive integer.');
         }
 
         if ($this->throttleTime >= $throttleWindow) {
-            throw new \ValueError('`throttleTime` should be less than `throttleWindow`.');
+            throw new \ValueError('$throttleTime should be less than $throttleWindow.');
         }
 
         $this->serverParams = $serverParams ?: new ServerParams();
