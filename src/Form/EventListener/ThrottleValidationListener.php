@@ -10,15 +10,25 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Util\ServerParams;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class AntispamValidationListener implements EventSubscriberInterface
+class ThrottleValidationListener implements EventSubscriberInterface
 {
     private ServerParams $serverParams;
 
     public function __construct(
         private RequestStack $requestStack,
         private Security $security,
+        private int $throttleTime,
+        private int $throttleWindow,
         ?ServerParams $serverParams,
     ) {
+        if ($throttleWindow < 0) {
+            throw new \ValueError('`throttleWindow` should be a positive integer.');
+        }
+
+        if ($this->throttleTime >= $throttleWindow) {
+            throw new \ValueError('`throttleTime` should be less than `throttleWindow`.');
+        }
+
         $this->serverParams = $serverParams ?: new ServerParams();
     }
 
@@ -82,11 +92,11 @@ class AntispamValidationListener implements EventSubscriberInterface
             }
         } else {
             // if 5 minutes have elapsed, reset the count to 1
-            if ($diff < -300) {
+            if ($diff < -$this->throttleWindow) {
                 $count = 1;
             }
 
-            $allowedAfter = $now + $count * 5;
+            $allowedAfter = $now + $count * $this->throttleTime;
         }
 
         $session->set($key, [
