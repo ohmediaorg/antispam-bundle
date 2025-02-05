@@ -35,11 +35,11 @@ class ThrottleValidationListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            FormEvents::PRE_SUBMIT => 'preSubmit',
+            FormEvents::POST_SUBMIT => 'postSubmit',
         ];
     }
 
-    public function preSubmit(FormEvent $event)
+    public function postSubmit(FormEvent $event)
     {
         $form = $event->getForm();
 
@@ -54,6 +54,10 @@ class ThrottleValidationListener implements EventSubscriberInterface
         }
 
         if (!$form->getConfig()->getOption('compound')) {
+            return;
+        }
+
+        if (!$form->isValid()) {
             return;
         }
 
@@ -80,9 +84,12 @@ class ThrottleValidationListener implements EventSubscriberInterface
         ++$count;
 
         if ($diff > 0) {
+            $noun = 1 === $diff ? 'second' : 'seconds';
+
             $message = sprintf(
-                'Spam prevention: please wait %s seconds before submitting again.',
+                'Spam prevention: please wait %s %s before submitting again.',
                 $diff,
+                $noun,
             );
 
             $form->addError(new FormError($message));
