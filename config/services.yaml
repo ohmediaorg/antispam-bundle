@@ -13,3 +13,7 @@ services:
     OHMedia\AntispamBundle\Twig\CaptchaExtension:
         arguments: ["%oh_media_antispam.captcha.type%", "%oh_media_antispam.captcha.sitekey%", "%oh_media_antispam.captcha.theme%", "%oh_media_antispam.captcha.size%"]
         tags: ["twig.extension"]
+
+    OHMedia\AntispamBundle\Form\Extension\FormTypeThrottleExtension:
+        autowire: true
+        tags: ["form.type_extension"]
