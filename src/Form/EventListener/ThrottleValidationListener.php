@@ -43,7 +43,13 @@ class ThrottleValidationListener implements EventSubscriberInterface
     {
         $form = $event->getForm();
 
-        $isMethodPost = 'POST' === $form->getConfig()->getMethod();
+        $method = $form->getConfig()->getMethod();
+
+        if ('GET' === $method) {
+            return;
+        }
+
+        $isMethodPost = 'POST' === $method;
 
         if ($isMethodPost && $this->serverParams->hasPostMaxSizeBeenExceeded()) {
             return;
