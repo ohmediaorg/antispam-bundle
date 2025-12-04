@@ -3,7 +3,7 @@ services:
         tags: ["form.type"]
 
     OHMedia\AntispamBundle\Validator\CaptchaValidator:
-        arguments: ["@request_stack", "%oh_media_antispam.captcha.secretkey%", "%oh_media_antispam.captcha.type%"]
+        arguments: ["@kernel", "@request_stack", "%oh_media_antispam.captcha.projectId%", "%oh_media_antispam.captcha.sitekey%", "%oh_media_antispam.captcha.type%"]
         tags: ["validator.constraint_validator"]
 
     OHMedia\AntispamBundle\Form\Extension\FormTypeHoneypotExtension:
