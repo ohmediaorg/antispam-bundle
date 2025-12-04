@@ -46,7 +46,8 @@ oh_media_antispam:
 
 Under `captcha` you can specify `type` as "hcaptcha" or "recaptcha" (default).
 
-_**Note:** `sitekey` and `secretkey` are omitted in the default config because the bundle
+<!-- TODO -->
+_**Note:** `sitekey` and `projectId` are omitted in the default config because the bundle
 will provide test keys._
 
 Override on the live site with `config/packages/prod/oh_media_antispam.yaml`:
@@ -56,7 +57,7 @@ oh_media_antispam:
     captcha:
         type: 'recaptcha' # or 'hcaptcha'
         sitekey: 'my_publishable_key'
-        secretkey: 'my_secret_key'
+        projectId: 'my_secret_key'
 ```
 
 You will want to ignore this prod file in your repository.

@@ -26,7 +26,7 @@ class OHMediaAntispamBundle extends AbstractBundle
                             ->end()
                         ->end()
                         ->scalarNode('sitekey')->end()
-                        ->scalarNode('secretkey')->end()
+                        ->scalarNode('projectId')->end()
                         ->scalarNode('theme')
                             ->defaultValue('light')
                             ->validate()
@@ -50,17 +50,17 @@ class OHMediaAntispamBundle extends AbstractBundle
     public function loadExtension(
         array $config,
         ContainerConfigurator $containerConfigurator,
-        ContainerBuilder $containerBuilder
+        ContainerBuilder $containerBuilder,
     ): void {
         $containerConfigurator->import('../config/services.yaml');
 
-        if (empty($config['captcha']['sitekey']) || empty($config['captcha']['secretkey'])) {
+        if (empty($config['captcha']['sitekey']) || empty($config['captcha']['projectId'])) {
             if (self::CAPTCHA_TYPE_HCAPTCHA === $config['captcha']['type']) {
                 $config['captcha']['sitekey'] = '10000000-ffff-ffff-ffff-000000000001';
-                $config['captcha']['secretkey'] = '0x0000000000000000000000000000000000000000';
+                $config['captcha']['projectId'] = '0x0000000000000000000000000000000000000000';
             } elseif (self::CAPTCHA_TYPE_RECAPTCHA === $config['captcha']['type']) {
                 $config['captcha']['sitekey'] = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
-                $config['captcha']['secretkey'] = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
+                $config['captcha']['projectId'] = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
             }
         }
 
