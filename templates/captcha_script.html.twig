@@ -12,15 +12,15 @@
         if (OHMEDIA_ANTISPAM_CAPTCHA_LOADED) {
           clearInterval(interval);
 
-          const widgetId = grecaptcha.render(container, parameters);
+          const widgetId = grecaptcha.enterprise.render(container, parameters);
 
           resolve({
             reset() {
-              return grecaptcha.reset(widgetId);
+              return grecaptcha.enterprise.reset(widgetId);
             },
 
             getResponse() {
-              return grecaptcha.getResponse(widgetId);
+              return grecaptcha.enterprise.getResponse(widgetId);
             },
           });
         }
@@ -96,5 +96,5 @@
 {% if is_type_hcaptcha %}
   <script src="https://js.hcaptcha.com/1/api.js?onload=OHMEDIA_ANTISPAM_CAPTCHA_CALLBACK&render=explicit&recaptchacompat=on" async defer></script>
 {% elseif is_type_recaptcha %}
-  <script src="https://www.google.com/recaptcha/api.js?onload=OHMEDIA_ANTISPAM_CAPTCHA_CALLBACK&render=explicit" async defer></script>
+  <script src="https://www.google.com/recaptcha/enterprise.js?onload=OHMEDIA_ANTISPAM_CAPTCHA_CALLBACK&render=explicit" async defer></script>
 {% endif %}
