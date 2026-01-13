@@ -8,3 +8,13 @@ services:
         exclude:
             - '../src/Entity/'
             - '../src/OHMediaAntispamBundle.php'
+            - '../src/Form/EventListener/HoneypotValidationListener.php'
+            - '../src/Form/EventListener/ThrottleValidationListener.php'
+
+    OHMedia\AntispamBundle\Form\Extension\FormTypeHoneypotExtension:
+        autowire: true
+        tags: ["form.type_extension"]
+
+    OHMedia\AntispamBundle\Form\Extension\FormTypeThrottleExtension:
+        autowire: true
+        tags: ["form.type_extension"]
