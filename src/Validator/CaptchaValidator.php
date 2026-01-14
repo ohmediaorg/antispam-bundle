@@ -3,6 +3,7 @@
 namespace OHMedia\AntispamBundle\Validator;
 
 use OHMedia\AntispamBundle\OHMediaAntispamBundle;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -13,8 +14,10 @@ class CaptchaValidator extends ConstraintValidator
 
     public function __construct(
         private RequestStack $requestStack,
+        #[Autowire('%oh_media_antispam.captcha.secretkey%')]
         private string $secretkey,
-        private string $type
+        #[Autowire('%oh_media_antispam.captcha.type%')]
+        private string $type,
     ) {
         if (OHMediaAntispamBundle::CAPTCHA_TYPE_HCAPTCHA === $type) {
             $this->url = 'https://hcaptcha.com/siteverify';

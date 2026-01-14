@@ -2,6 +2,7 @@
 
 namespace OHMedia\AntispamBundle\Form\Extension;
 
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\AbstractExtension;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -11,8 +12,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class HoneypotExtension extends AbstractExtension
 {
     public function __construct(
-        private TranslatorInterface $translator = null,
-        private string $translationDomain = null
+        private ?TranslatorInterface $translator,
+        #[Autowire('%validator.translation_domain%')]
+        private ?string $translationDomain,
     ) {
     }
 

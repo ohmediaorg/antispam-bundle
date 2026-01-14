@@ -4,6 +4,7 @@ namespace OHMedia\AntispamBundle\Form\Extension;
 
 use OHMedia\AntispamBundle\Form\EventListener\HoneypotValidationListener;
 use OHMedia\AntispamBundle\Form\Type\HoneypotType;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,11 +12,15 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Util\ServerParams;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FormTypeHoneypotExtension extends AbstractTypeExtension
 {
     public function __construct(
-        private ?ServerParams $serverParams
+        private ?TranslatorInterface $translator,
+        #[Autowire('%validator.translation_domain%')]
+        private ?string $translationDomain,
+        private ?ServerParams $serverParams,
     ) {
     }
 
@@ -32,6 +37,8 @@ class FormTypeHoneypotExtension extends AbstractTypeExtension
             ->addEventSubscriber(new HoneypotValidationListener(
                 $options['honeypot_field_name'],
                 $options['honeypot_message'],
+                $this->translator,
+                $this->translationDomain,
                 $this->serverParams
             ))
         ;
