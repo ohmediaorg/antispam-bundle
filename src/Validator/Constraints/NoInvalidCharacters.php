@@ -17,7 +17,7 @@ class NoInvalidCharacters extends Compound
         ]);
     }
 
-    public function getDefaultOption()
+    public function getDefaultOption(): ?string
     {
         return 'label';
     }
