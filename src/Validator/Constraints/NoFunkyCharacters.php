@@ -1,6 +1,6 @@
 <?php
 
-namespace OHMedia\AntispamBundle\Validator;
+namespace OHMedia\AntispamBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraints\Compound;
 use Symfony\Component\Validator\Constraints\NoSuspiciousCharacters;
