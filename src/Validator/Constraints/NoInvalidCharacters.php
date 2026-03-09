@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Constraints\Compound;
 use Symfony\Component\Validator\Constraints\NoSuspiciousCharacters;
 
 #[\Attribute]
-class NoFunkyCharacters extends Compound
+class NoInvalidCharacters extends Compound
 {
     protected ?string $label;
 
