@@ -8,25 +8,16 @@ use Symfony\Component\Validator\Constraints\NoSuspiciousCharacters;
 #[\Attribute]
 class NoInvalidCharacters extends Compound
 {
-    protected ?string $label;
-
-    public function __construct(?string $label = null)
+    public function __construct(private ?string $label = null)
     {
-        parent::__construct([
-            'label' => $label,
-        ]);
-    }
-
-    public function getDefaultOption(): ?string
-    {
-        return 'label';
+        parent::__construct();
     }
 
     protected function getConstraints(array $options): array
     {
         $constraints = [];
 
-        $label = $options['label'] ?? null;
+        $label = $this->label ?? null;
 
         if ($label) {
             $constraints[] = new NoSuspiciousCharacters(
